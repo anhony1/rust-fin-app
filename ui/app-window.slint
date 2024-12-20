@@ -1,0 +1,97 @@
+import { Button, VerticalBox, HorizontalBox, LineEdit } from "std-widgets.slint";
+
+
+component DollarAmountLabel inherits Text {
+
+    horizontal-alignment: center;
+    font-size: 14px;
+
+}
+
+component MainButtons inherits Button {
+    primary: true;
+    height: 35px;
+}
+
+export component AppWindow inherits Window {
+    
+    height: 600px;
+    resize-border-width: 0cm;
+
+    in-out property<float> monthly_check;
+    in-out property<float> bi_weekly_check;
+
+    in-out property<float> bi_after_tax_check;
+
+    in-out property<float> fed_tax;
+    in-out property<float> state_tax;
+
+    callback calculate_salary(string);
+    callback reset_calculation();
+
+    background: #313e50;
+  
+    GridLayout {
+        
+        padding: 50px;
+        spacing: 25px;
+        Row{
+            Text {
+                text: "Enter Salary";
+                font-size: 20px;
+                font-weight: 900;
+                horizontal-alignment: center;
+            }
+        }
+
+        Row{
+            salary := LineEdit{
+                horizontal-alignment: center;
+                height: 35px;
+                font-size: 14px;
+                placeholder-text: "Enter Salary here";
+            }
+        }
+
+        Row{
+            HorizontalBox{
+                MainButtons{
+                    text: "Calculate";
+                    clicked => {calculate_salary(salary.text)}
+                }
+                MainButtons{
+                    text: "Reset";
+                    clicked => {reset_calculation()}
+                }
+           }
+        }
+
+        Row{
+            DollarAmountLabel {
+                text: "Monthly Check: $\{root.monthly_check}";
+            }
+        }
+    
+        Row{
+            DollarAmountLabel {
+                text: "Bi-weekly Check: $\{root.bi_weekly_check}";
+            }
+        }
+
+        Row{
+            VerticalBox{
+                DollarAmountLabel {
+                    text: "Federal Tax: $\{root.fed_tax}";
+                }
+                DollarAmountLabel {
+                    text: "State Tax: $\{root.state_tax}";
+                }
+                DollarAmountLabel {
+                    text: "After Tax Bi-weekly Check: $\{root.bi_after_tax_check}";
+                } 
+            }
+        }
+
+    }
+
+}
