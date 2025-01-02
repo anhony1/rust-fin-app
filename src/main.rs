@@ -16,6 +16,10 @@ const CO_STATE_TAX: f32 = 0.042; // this includes State withholding and FLI with
 
 const FOUR_0_1_K: f32 = 0.042;
 
+// FIXME: hello
+
+// TODO: Fix this 
+
 fn main() -> Result<(), Box<dyn Error>> {
     
     print_hello();
